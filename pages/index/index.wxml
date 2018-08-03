@@ -18,7 +18,7 @@
       </view>
       <view class="card-line"/>
       <view class="card-body-item">
-        "{{item.content}}"
+        "{{item.text}}"
       </view>
     </view>
       <!-- Card component -->

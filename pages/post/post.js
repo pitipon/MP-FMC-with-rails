@@ -2,24 +2,29 @@
 
 const app = getApp()
 
-Page({
+const myRequest = require('../../lib/api/request');
 
-  data: {
-  
-  },
-  // Bind Submit
+Page({
+  data: {},
+  // Form Submit Button
   bindSubmit: function (e) {
  
-    wx.showToast({
-      title: 'Sending...',
-      icon: 'loading',
-      duration: 1000
-    })
-    let name = e.detail.value.name
-    let content = e.detail.value.content
+    let page = this
+    wx.showToast({ title: 'Sending...', icon: 'loading', duration: 1000 })
     
-    console.log(e)
-    app.globalData.items.unshift({name: name, content: content})
+    // Post new story to API
+    myRequest.post({
+      path: 'stories',
+      data: {
+        story: {
+          name: e.detail.value.name,
+          text: e.detail.value.text
+        }
+      },
+      success(res) {
+        console.log(res)
+      }
+    })
     
 
     setTimeout(function () {
@@ -28,8 +33,5 @@ Page({
       })
     }, 1000)
 
-  },
-  onLoad: function (options) {
-  
   }
 })
